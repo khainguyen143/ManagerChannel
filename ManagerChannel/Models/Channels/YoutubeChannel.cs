@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Models.Authorization;
 using ManagerChannel.Models.Networks;
+using ManagerChannel.Models.Pay;
 using System;
 using System.Collections.Generic;
 
@@ -22,7 +23,9 @@ namespace ManagerChannel.Models.Channels
         public string VideoCount { get; set; }
         public string Token { get; set; }
 
-
+        public string PaymentAccountId { get; set; }
+        public PaymentAccount PaymentAccount { get; set; }
+        public DateTime? StartPayment { get; set; }
         public string NetworkId { get; set; }
         public NetWork NetWork { get; set; }
         public float NetworkRate { get; set; }
@@ -65,6 +68,9 @@ namespace ManagerChannel.Models.Channels
 
         public string NetWorkId { get; set; }
         public NetWork NetWork { get; set; }
+
+        public string PaymentAccountId { get; set; }
+        public PaymentAccount PaymentAccount { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
