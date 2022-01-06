@@ -14,7 +14,7 @@ namespace API.Models.Authorization
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override string Id { get; set; }
         public string UserName { get; set; }
-
+        public string TeamId { get; set; } 
         public List<UserRole> UserRoles { get; set; }
         public List<UserRestriction> UserRestrictions { get; set; }
 
