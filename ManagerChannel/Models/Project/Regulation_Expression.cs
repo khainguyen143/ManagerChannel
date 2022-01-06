@@ -1,21 +1,15 @@
 ﻿using API.Models;
 using API.Models.Authorization;
 using System;
-using System.Collections.Generic;
-
 namespace ManagerChannel.Models.Project
 {
-    public class ProjectRegulation : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
+    public class Regulation_Expression: BaseModel, ISoftDeletableModel, ILoggableUserActionModel
     {
+        public string ProjectRegulationId { get; set; }
+        public ProjectRegulation ProjectRegulation { get; set; }
 
-
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Note { get; set; }
-        public string ProjectId { get; set; }
-        public Project Project { get; set; }
-        public List<Regulation_Expression> Regulation_Expressions { get; set; }
-
+        public string RegulationExpressionId { get; set; }
+        public RegulationExpression RegulationExpression { get; set; }
         //------------------------------------------
         public string CreatedByUserId { get; set; }
         public User CreatedByUser { get; set; }
