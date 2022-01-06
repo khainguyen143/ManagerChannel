@@ -11,7 +11,8 @@ namespace ManagerChannel.Models.Project
         public string Description { get; set; }
         public string Note { get; set; }
         public DateTime StartDate { get; set; }
-
+        public string UserId { get; set; }  
+        public User User { get; set; }
         //------------------------------------------
         public string CreatedByUserId { get; set; }
         public User CreatedByUser { get; set; }
