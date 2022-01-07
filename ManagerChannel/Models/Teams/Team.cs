@@ -45,6 +45,7 @@ namespace ManagerChannel.Models.Teams
         public RoleInTeam Role { get; set; }
 
         public string TeamId { get; set; }
+        public Team Team { get; set; }
 
         public List<UserRole_YoutubeChannel> UserRole_YoutubeChannels { get; set; }
         public List<Network_UserRoleInTeam> NetWorkRoles { get; set; }
