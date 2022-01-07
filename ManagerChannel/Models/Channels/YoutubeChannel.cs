@@ -4,6 +4,7 @@ using ManagerChannel.Models.Networks;
 using ManagerChannel.Models.Pay;
 using System;
 using System.Collections.Generic;
+using ManagerChannel.Models.ManagementProject;
 
 namespace ManagerChannel.Models.Channels
 {
@@ -29,7 +30,9 @@ namespace ManagerChannel.Models.Channels
         public string NetworkId { get; set; }
         public NetWork NetWork { get; set; }
         public float NetworkRate { get; set; }
-
+        public string ProjectId { get; set; }
+        public Project Project { get; set; }
+       
         public List<User_YoutubeChannel>  UserChannelHistories { get; set; }
         public List<NetworkHistory> NetWorkHistories { get; set; }
         //-----------------------------------------
