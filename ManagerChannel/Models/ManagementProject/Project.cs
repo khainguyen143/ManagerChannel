@@ -1,16 +1,18 @@
 ﻿using API.Models;
 using API.Models.Authorization;
 using System;
-namespace ManagerChannel.Models.Project
+using System.Collections.Generic;
+
+namespace ManagerChannel.Models.ManagementProject
 {
-    public class RegulationExpression : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
+    public class Project : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
     {
 
         public string Name { get; set; }
         public string Description { get; set; }
         public string Note { get; set; }
-        public string Expression { get; set; }// biểu thức kiểm tra
-        public string FieldColumn { get; set; }// cột sẽ được kiểm tra bởi biêu thức.
+        public DateTime StartDate { get; set; }
+        public List<ProjectRegulation>  ProjectRegulations { get; set; }
 
         //------------------------------------------
         public string CreatedByUserId { get; set; }

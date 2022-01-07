@@ -2,15 +2,17 @@
 using API.Models.Authorization;
 using System;
 
-namespace ManagerChannel.Models.Project
+namespace ManagerChannel.Models.ManagementProject
 {
-    public class Project : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
+    public class ProjectRegulation : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
     {
+
 
         public string Name { get; set; }
         public string Description { get; set; }
         public string Note { get; set; }
-        public DateTime StartDate { get; set; }
+        public string ProjectId { get; set; }
+        public Project Project { get; set; }
 
         //------------------------------------------
         public string CreatedByUserId { get; set; }
