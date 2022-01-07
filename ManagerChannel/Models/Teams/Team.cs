@@ -38,7 +38,7 @@ namespace ManagerChannel.Models.Teams
         public string UserId { get; set; }
         public User User { get; set; }
 
-        public TeamRole Role { get; set; }
+        public TeamRole Role { get; set; }  
     }
 
     public enum TeamRole

@@ -9,6 +9,7 @@ namespace ManagerChannel.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [requ]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
