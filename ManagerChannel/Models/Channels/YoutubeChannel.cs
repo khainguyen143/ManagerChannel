@@ -5,6 +5,7 @@ using ManagerChannel.Models.Pay;
 using System;
 using System.Collections.Generic;
 using ManagerChannel.Models.ManagementProject;
+using ManagerChannel.Models.Teams;
 
 namespace ManagerChannel.Models.Channels
 {
@@ -30,10 +31,10 @@ namespace ManagerChannel.Models.Channels
         public string NetworkId { get; set; }
         public NetWork NetWork { get; set; }
         public float NetworkRate { get; set; }
-        public string ProjectId { get; set; }
-        public ManagerChannel.Models.ManagementProject.Project Project { get; set; }
-       
-        public List<User_YoutubeChannel>  UserChannelHistories { get; set; }
+        /*public string ProjectId { get; set; }
+        public ManagerChannel.Models.ManagementProject.Project Project { get; set; }*/
+        public List<UserRole_YoutubeChannel> UserRole_YoutubeChannel { get; set; }
+        public List<User_YoutubeChannelHistory>  UserChannelHistories { get; set; }
         public List<NetworkHistory> NetWorkHistories { get; set; }
         //-----------------------------------------
         public DateTime CreatedDate { get; set; }
@@ -48,7 +49,16 @@ namespace ManagerChannel.Models.Channels
         public DateTime? DeletedDate { get; set; }
     }
 
-    public class User_YoutubeChannel : ISoftDeletableModel
+    public class UserRole_YoutubeChannel
+    {
+        public string ChannelId { get; set; }
+        public YoutubeChannel Channel { get; set; }
+
+        public string UserRoleInTeamId { get; set; }
+        public UserRoleInTeam UserRoleInTeam { get; set; }
+    }
+
+    public class User_YoutubeChannelHistory : ISoftDeletableModel
     {
         public string Id { get; set; }
         public int ChannelId { get; set; }

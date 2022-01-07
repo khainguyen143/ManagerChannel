@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Models.Authorization;
+using ManagerChannel.Models.Channels;
 using ManagerChannel.Models.ManagementProject;
 using ManagerChannel.Models.Networks;
 using System;
@@ -45,6 +46,7 @@ namespace ManagerChannel.Models.Teams
 
         public string TeamId { get; set; }
 
+        public List<UserRole_YoutubeChannel> UserRole_YoutubeChannels { get; set; }
         public List<Network_UserRoleInTeam> NetWorkRoles { get; set; }
         public List<Project_UserRoleInTeam> ProjectRoles { get; set; }
     }
