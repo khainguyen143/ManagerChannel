@@ -31,7 +31,7 @@ namespace ManagerChannel.Models.Channels
         public NetWork NetWork { get; set; }
         public float NetworkRate { get; set; }
         public string ProjectId { get; set; }
-        public Project Project { get; set; }
+        public ManagerChannel.Models.ManagementProject.Project Project { get; set; }
        
         public List<User_YoutubeChannel>  UserChannelHistories { get; set; }
         public List<NetworkHistory> NetWorkHistories { get; set; }
