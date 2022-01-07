@@ -1,7 +1,10 @@
 ﻿using API.Models;
 using API.Models.Authorization;
+using ManagerChannel.Models.ManagementProject;
+using ManagerChannel.Models.Networks;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ManagerChannel.Models.Teams
 {
@@ -17,7 +20,7 @@ namespace ManagerChannel.Models.Teams
         public List<Team> SubTeams { get; set; }
 
         // authrzation
-        public List<TeamUserRole> UserRoles { get; set; }
+        public List<UserRoleInTeam> UserRolesInTeam { get; set; }
 
         //------------------------------------------
         public string CreatedByUserId { get; set; }
@@ -30,21 +33,83 @@ namespace ManagerChannel.Models.Teams
         public DateTime? DeletedDate { get; set; }
     }
 
-    public class TeamUserRole
+    public class UserRoleInTeam : BaseModel
     {
-        public string TeamId { get; set; }
-        public Team Team { get; set; }
-
+        [Required]
         public string UserId { get; set; }
         public User User { get; set; }
 
-        public TeamRole Role { get; set; }  
+        [Required]
+        public string RoleId { get; set; }
+        public RoleInTeam Role { get; set; }
+
+        public string TeamId { get; set; }
+
+        public List<Network_UserRoleInTeam> NetWorkRoles { get; set; }
+        public List<Project_UserRoleInTeam> ProjectRoles { get; set; }
     }
 
-    public enum TeamRole
+    public class RoleInTeam : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
     {
-        Leader = 0,         // role: Trưởng nhóm            | Team con: xem + thêm + sửa + xóa        | quản lý user
-        DataAnalyst = 1,    // role: Thống kê dữ liệu       | Team con: xem 
-        Staff = 2           // role: Nhân viên              | Team con: không 
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public List<RolePermissionInTeam> RolePermissions { get; set; }
+        public List<UserRoleInTeam> UserRoles { get; set; }
+
+        public string CreatedByUserId { get; set; }
+        public User CreatedByUser { get; set; }
+        public string UpdatedByUserId { get; set; }
+        public User UpdatedByUser { get; set; }
+        public string DeletedByUserId { get; set; }
+        public User DeletedByUser { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
+    }
+
+    public class RolePermissionInTeam : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
+    {
+        [Required]
+        public string RoleId { get; set; }
+        public RoleInTeam Role { get; set; }
+
+        public TeamPermission Permission { get; set; }
+
+        public string CreatedByUserId { get; set; }
+        public User CreatedByUser { get; set; }
+        public string UpdatedByUserId { get; set; }
+        public User UpdatedByUser { get; set; }
+        public string DeletedByUserId { get; set; }
+        public User DeletedByUser { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
+    }
+
+    public enum TeamPermission
+    {
+        // Quản lý Thành viên trong team
+        MemberManager = 0100000000,                   // Quản lý Thành viên trong team    | Cho phép : Thêm/sửa/xóa/xem/phân_quyền thành viên trong team
+        
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Quản lý các kênh trong team 
+        ChannelsManagementInTeam = 0200000000,        // Quản lý các kênh trong team      | Cho phép : Thêm/sửa/xóa/xem/phân_quyền các kênh trong team
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Quản lý các kênh trong project
+        ChannelsManagementInProject = 0300000000,     // Quản lý các kênh trong project   | Cho phép : Xem các kênh trong project trong team
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Quản lý các network trong team
+        NetWorksManagementInTeam = 0400000000,        // Quản lý các network trong team   | Cho phép : Xem các kênh có sử dụng network trong team
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Thống kê dữ liệu
+        DataAnalyst = 0500000000,                     // Thống kê dữ liệu                 | Cho phép : Xem tất cả các kênh trong team
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        // Quản lý kênh của người dùng
+        UserChannelsManagement = 0600000000,          // Quản lý kênh của người dùng      | Cho phép : Thay đổi/chỉnh sửa/thêm mới - các video, nội dung trong kênh của user đó
     }
 }

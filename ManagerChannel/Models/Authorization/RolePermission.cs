@@ -46,6 +46,7 @@ namespace API.Models.Authorization
     */
     public enum Permission
     {
+
         Access_Application = 0,
 
         /*---------------------------AUTHORIZATION---------------------------*/
@@ -55,6 +56,9 @@ namespace API.Models.Authorization
         Manage_Notification = 0200000000,
 
         /*---------------------------SERVICE---------------------------*/
-        Manage_Service = 0300000000
+        Manage_Service = 0300000000,
+
+        /*---------------------------Tutorial---------------------------*/
+        Manage_Tutorial = 0400000000,
     }
 }

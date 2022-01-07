@@ -1,4 +1,5 @@
 ﻿using API.Models.Notifications;
+using ManagerChannel.Models.Teams;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,8 +15,8 @@ namespace API.Models.Authorization
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override string Id { get; set; }
         public string UserName { get; set; }
-        public string TeamId { get; set; } 
         public List<UserRole> UserRoles { get; set; }
+        public List<UserRoleInTeam> UserRoleInTeams { get; set; }
         public List<UserRestriction> UserRestrictions { get; set; }
 
         public bool IsDeleted { get; set; }
