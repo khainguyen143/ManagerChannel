@@ -6,9 +6,9 @@
         public string NETWORK { get; set; } = "NETWORK"; 
         public string PROJECT { get; set; } = "PROJECT"; 
     }
+    //hành động ....
     public class Action
     {
-        public string NETWORK { get; set; } = "NETWORK";
-        public string PROJECT { get; set; } = "PROJECT";
+     
     }
 }

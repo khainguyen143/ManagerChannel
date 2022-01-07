@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Models.Authorization;
+using ManagerChannel.Models.ManagementProject;
 using System;
 namespace ManagerChannel.Models.Project
 {

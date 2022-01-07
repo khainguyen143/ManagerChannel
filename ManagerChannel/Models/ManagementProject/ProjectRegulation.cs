@@ -12,6 +12,7 @@ namespace ManagerChannel.Models.ManagementProject
         public string Description { get; set; }
         public string Note { get; set; }
         public string ProjectId { get; set; }
+        public Warning  Warning { get; set; }
         public Project Project { get; set; }
 
         //------------------------------------------
@@ -23,5 +24,10 @@ namespace ManagerChannel.Models.ManagementProject
         public User DeletedByUser { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }
+    }
+    //các cấp độ cảnh khi vi phạm 1 quy định 
+    public enum Warning
+    {
+
     }
 }
