@@ -3,6 +3,7 @@ using API.Models.Authorization;
 using ManagerChannel.Models.Channels;
 using ManagerChannel.Models.Networks;
 using System;
+using System.Collections.Generic;
 
 namespace ManagerChannel.Models.Pay
 {
@@ -11,6 +12,7 @@ namespace ManagerChannel.Models.Pay
         public string Name { get; set; }
         public string Note { get; set; }
         
+        public List<Network_PaymentAccount> Network_PaymentAccounts { get; set; }
         //-----------------------------------------
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }
