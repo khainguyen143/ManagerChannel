@@ -4,6 +4,12 @@ using API.Models;
 using API.Models.Authorization;
 using API.Models.Notifications;
 using API.Models.Support;
+using ManagerChannel.Models.Channels;
+using ManagerChannel.Models.ManagementProject;
+using ManagerChannel.Models.Networks;
+using ManagerChannel.Models.Pay;
+using ManagerChannel.Models.ProjectGoogleApies;
+using ManagerChannel.Models.Teams;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
@@ -32,8 +38,30 @@ namespace API.Data
         /*-------------------------------------------------------NOTIFICATION-----------------------------------------------------*/
         public DbSet<SendingEmailJob> SedingEmailJob { get; set; }
         public DbSet<Notification> Notification { get; set; }
-
         public DbSet<Tutorial> Tutorials { get; set; }
+
+        public DbSet<Team> Teams { get; set; } 
+        public DbSet<RolePermissionInTeam> RolePermissionInTeams { get; set; }
+        public DbSet<UserRoleInTeam> UserRoleInTeams { get; set; }
+        public DbSet<RoleInTeam> RoleInTeams { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Project_UserRoleInTeam> ProjectUserRoleInTeams { get; set;}
+
+        public DbSet<NetWork> NetWorks { get; set; }
+        public DbSet<Network_UserRoleInTeam> Network_UserRoleIns { get; set; }
+        public DbSet<Network_PaymentAccount> Network_PaymentAccount { get; set;}
+
+        public DbSet<PaymentAccount> PaymentAccounts { get; set; }
+        
+        public DbSet<YoutubeChannel> YoutubeChannels { get; set; }
+        public DbSet<UserRole_YoutubeChannel> UserRole_YoutubeChannels { get; set; }
+        public DbSet<ReportDataChannelDaily> ReportDataChannelDailies { get; set; }
+
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<ReportDataVideoDaily> ReportDataVideoDaily { get; set;}
+        public DbSet<ProjectGoogleApi> ProjectGoogleApis { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -98,6 +126,101 @@ namespace API.Data
             builder.Entity<UserRestriction>().HasOne(entity => entity.User).WithMany(entity => entity.UserRestrictions);
             builder.Entity<UserRestriction>().HasOne(entity => entity.CreatedByUser).WithMany();
             builder.Entity<UserRestriction>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<UserRoleInTeam>().HasOne(entity => entity.User).WithMany(entity => entity.UserRoleInTeams);
+            builder.Entity<UserRoleInTeam>().HasOne(entity => entity.Role).WithMany(entity => entity.UserRoles);
+            builder.Entity<UserRoleInTeam>().HasOne(entity => entity.Team).WithMany(entity => entity.UserRolesInTeam);
+            builder.Entity<UserRoleInTeam>().HasMany(entity => entity.ProjectRoles).WithOne(entity => entity.UserRoleInTeam);
+            builder.Entity<UserRoleInTeam>().HasMany(entity => entity.NetWorkRoles).WithOne(entity => entity.UserRoleInTeam);
+            builder.Entity<UserRoleInTeam>().HasMany(entity => entity.UserRole_YoutubeChannels).WithOne(entity => entity.UserRoleInTeam);
+            builder.Entity<UserRoleInTeam>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<UserRoleInTeam>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<RoleInTeam>().HasMany(entity => entity.RolePermissions).WithOne(entity => entity.Role);
+            builder.Entity<RoleInTeam>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<RoleInTeam>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<RolePermissionInTeam>().HasOne(entity => entity.Role).WithMany(entity => entity.RolePermissions);
+            builder.Entity<RolePermissionInTeam>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<RolePermissionInTeam>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<Team>()
+                .HasMany(entity => entity.SubTeams)
+                .WithOne(entity => entity.ParentTeam)
+                .HasForeignKey(entity => entity.ParentTeamId);
+            builder.Entity<Team>().HasMany(entity => entity.UserRolesInTeam).WithOne(entity => entity.Team);
+            builder.Entity<Team>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<Team>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<Project>().HasMany(entity => entity.Project_UserRoleInTeams).WithOne(entity => entity.Project);
+            builder.Entity<Project>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<Project>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<Project_UserRoleInTeam>().HasKey( entity => new { entity.ProjectId, entity.UserRoleInTeamId});
+            builder.Entity<Project_UserRoleInTeam>()
+                .HasOne(entity => entity.UserRoleInTeam)
+                .WithMany(entity => entity.ProjectRoles)
+                .HasForeignKey(entity => entity.UserRoleInTeamId);
+            builder.Entity<Project_UserRoleInTeam>()
+                .HasOne(entity => entity.Project)
+                .WithMany(entity => entity.Project_UserRoleInTeams)
+                .HasForeignKey(entity => entity.ProjectId);
+
+            builder.Entity<NetWork>().HasMany(entity => entity.Network_PaymentAccounts).WithOne(entity => entity.NetWork);
+            builder.Entity<NetWork>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<NetWork>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<PaymentAccount>().HasMany(entity => entity.Network_PaymentAccounts);
+            builder.Entity<PaymentAccount>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<PaymentAccount>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<Network_PaymentAccount>().HasOne(entity => entity.NetWork).WithMany(entity => entity.Network_PaymentAccounts);
+            builder.Entity<Network_PaymentAccount>().HasOne(entity => entity.PaymentAccount).WithMany(entity => entity.Network_PaymentAccounts);
+            builder.Entity<Network_PaymentAccount>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<Network_PaymentAccount>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<Network_UserRoleInTeam>().HasKey(entity => new { entity.UserRoleInTeamId, entity.Network_PaymentAccountId });
+            builder.Entity<Network_UserRoleInTeam>()
+                .HasOne(entity => entity.UserRoleInTeam)
+                .WithMany(entity => entity.NetWorkRoles)
+                .HasForeignKey(entity => entity.UserRoleInTeamId);
+            builder.Entity<Network_UserRoleInTeam>()
+                .HasOne(entity => entity.Network_PaymentAccount)
+                .WithMany(entity => entity.Network_UserRoleInTeams)
+                .HasForeignKey(entity => entity.Network_PaymentAccountId);
+
+            builder.Entity<YoutubeChannel>().HasKey(entity => entity.ChannelId);
+            builder.Entity<YoutubeChannel>().HasOne(entity => entity.NetWork).WithMany();
+            builder.Entity<YoutubeChannel>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<YoutubeChannel>().HasOne(entity => entity.UpdatedByUser).WithMany();
+            builder.Entity<YoutubeChannel>().HasMany(entity => entity.NetWorkHistories).WithOne(entity => entity.YoutubeChannel);
+            builder.Entity<YoutubeChannel>().HasMany(entity => entity.UserRole_YoutubeChannels).WithOne(entity => entity.YoutubeChannel);
+            builder.Entity<YoutubeChannel>().HasMany(entity => entity.ReportDataChannelDailies).WithOne(entity => entity.YoutubeChannel);
+            builder.Entity<YoutubeChannel>().HasMany(entity => entity.UserChannelHistories).WithOne(entity => entity.YoutubeChannel);
+            builder.Entity<YoutubeChannel>()
+                .HasOne(entity => entity.ProjectGoogleApi)
+                .WithMany(entity => entity.YoutubeChannels)
+                .HasForeignKey(entity => entity.ProjectGoogleApiId);
+            builder.Entity<ReportDataChannelDaily>()
+                .HasOne(entity => entity.YoutubeChannel)
+                .WithMany(entity => entity.ReportDataChannelDailies)
+                .HasForeignKey(entity => entity.ChannelId);
+           
+            builder.Entity<Video>()
+                .HasOne(entity => entity.Channel)
+                .WithMany(entity => entity.Videos)
+                .HasForeignKey(entity => entity.ChannelId);
+            builder.Entity<Video>().HasMany(entity => entity.ReportDataVideoDailies).WithOne(entity => entity.Video);
+            builder.Entity<Video>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<Video>().HasOne(entity => entity.UpdatedByUser).WithMany();
+
+            builder.Entity<ReportDataVideoDaily>()
+                .HasOne(entity => entity.Video)
+                .WithMany(entity => entity.ReportDataVideoDailies)
+                .HasForeignKey(entity => entity.VideoId);
+
+            builder.Entity<User_YoutubeChannelHistory>().HasOne(entity => entity.YoutubeChannel).WithMany(entity => entity.UserChannelHistories);
+            builder.Entity<User_YoutubeChannelHistory>().HasOne(entity => entity.User).WithMany(entity => entity.User_YoutubeChannelHistories);
 
         }
 

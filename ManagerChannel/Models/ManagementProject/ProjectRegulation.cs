@@ -6,13 +6,11 @@ namespace ManagerChannel.Models.ManagementProject
 {
     public class ProjectRegulation : BaseModel, ISoftDeletableModel, ILoggableUserActionModel
     {
-
-
         public string Name { get; set; }
         public string Description { get; set; }
         public string Note { get; set; }
+        public Warning Warning { get; set; }
         public string ProjectId { get; set; }
-        public Warning  Warning { get; set; }
         public Project Project { get; set; }
 
         //------------------------------------------

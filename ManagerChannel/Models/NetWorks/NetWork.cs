@@ -50,6 +50,7 @@ namespace ManagerChannel.Models.Networks
         public string NetworkId { set; get; }
         public NetWork NetWork { get; set; }
 
+        public List<Network_UserRoleInTeam> Network_UserRoleInTeams { get; set; }
         public float NetworkRate { get; set; }
         //-------------------------------------------
         public bool IsDeleted { get; set; }

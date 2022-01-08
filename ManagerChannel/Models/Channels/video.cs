@@ -39,6 +39,7 @@ namespace ManagerChannel.Models.Channels
         public Video Video { get; set; }
 
         public long ViewCount { get; set; }
+        public int likeCount { get; set; }
         public float AverageViewDurationInSecond { get; set; }
         public bool IsMonetize { get; set; }
         public long ViewGain { get; set; }

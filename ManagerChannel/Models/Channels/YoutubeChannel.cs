@@ -33,9 +33,10 @@ namespace ManagerChannel.Models.Channels
         public string ProjectGoogleApiId { get; set; }
         public ProjectGoogleApi ProjectGoogleApi { get; set; }
         public List<Video> Videos { get; set; }
-        public List<UserRole_YoutubeChannel> UserRole_YoutubeChannel { get; set; }
+        public List<UserRole_YoutubeChannel> UserRole_YoutubeChannels { get; set; }
         public List<User_YoutubeChannelHistory>  UserChannelHistories { get; set; }
         public List<Network_Channel_History> NetWorkHistories { get; set; }
+        public List<ReportDataChannelDaily> ReportDataChannelDailies { get; set; }
         //-----------------------------------------
         public DateTime CreatedDate { get; set; }
         public string CreatedByUserId { get; set; }
@@ -52,7 +53,7 @@ namespace ManagerChannel.Models.Channels
     public class UserRole_YoutubeChannel
     {
         public string ChannelId { get; set; }
-        public YoutubeChannel Channel { get; set; }
+        public YoutubeChannel YoutubeChannel { get; set; }
 
         public string UserRoleInTeamId { get; set; }
         public UserRoleInTeam UserRoleInTeam { get; set; }
@@ -62,7 +63,7 @@ namespace ManagerChannel.Models.Channels
     {
         public string Id { get; set; }
         public int ChannelId { get; set; }
-        public YoutubeChannel Channel { get; set; }
+        public YoutubeChannel YoutubeChannel { get; set; }
 
         public string UserId { get; set; }
         public User User { get; set; }

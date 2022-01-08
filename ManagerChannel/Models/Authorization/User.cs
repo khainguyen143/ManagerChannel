@@ -1,4 +1,5 @@
 ﻿using API.Models.Notifications;
+using ManagerChannel.Models.Channels;
 using ManagerChannel.Models.Teams;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace API.Models.Authorization
         public List<UserRole> UserRoles { get; set; }
         public List<UserRoleInTeam> UserRoleInTeams { get; set; }
         public List<UserRestriction> UserRestrictions { get; set; }
+        public List<User_YoutubeChannelHistory> User_YoutubeChannelHistories { get; set; }
 
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate {get;set;}
