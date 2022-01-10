@@ -27,7 +27,7 @@ namespace ManagerChannel.Models.Channels
 
         public DateTime? StartPayment { get; set; }
         public string NetworkId { get; set; }
-        public NetWork NetWork { get; set; }
+        public Network NetWork { get; set; }
         public float NetworkRate { get; set; }
 
         public string ProjectGoogleApiId { get; set; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Dto
+namespace ManagerChannel.Dto.BaseDtos
 {
     public class BaseDbJobDto : BaseDto
     {
@@ -57,7 +57,7 @@ namespace API.Dto
                 return baseResult;
             }
 
-            if(JobState != null && !Enum.IsDefined(typeof(JobState), JobState))
+            if (JobState != null && !Enum.IsDefined(typeof(JobState), JobState))
             {
                 return new DtoValidationResult(false, "Dữ liệu đầu vào 'Trạng thái' không hợp lệ");
             }
@@ -80,7 +80,7 @@ namespace API.Dto
                 {
                     query = query.Where(entity => ((IJobModel)entity).JobState == JobState);
                 }
-                if(JobResult != null)
+                if (JobResult != null)
                 {
                     query = query.Where(entity => ((IJobModel)entity).JobResult == JobResult);
                 }
@@ -88,7 +88,7 @@ namespace API.Dto
                 {
                     query = query.Where(entity => ((IJobModel)entity).JobMessage == JobMessage);
                 }
-                if(JobExecutingBeginTimeFrom != null)
+                if (JobExecutingBeginTimeFrom != null)
                 {
                     query = query.Where(entity => ((IJobModel)entity).JobExecutingBeginTime >= JobExecutingBeginTimeFrom);
                 }

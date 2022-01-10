@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ManagerChannel.Models.Networks
 {
-    public class NetWork : BaseModel, ILoggableUserActionModel, ISoftDeletableModel
+    public class Network : BaseModel, ILoggableUserActionModel, ISoftDeletableModel
     {
         public string Name { get; set; }
         public string Note { get; set; }
@@ -50,7 +50,7 @@ namespace ManagerChannel.Models.Networks
 
         [Required]
         public string NetworkId { set; get; }
-        public NetWork NetWork { get; set; }
+        public Network NetWork { get; set; }
 
         public List<Network_UserRoleInTeam> Network_UserRoleInTeams { get; set; }
         public float NetworkRate { get; set; }

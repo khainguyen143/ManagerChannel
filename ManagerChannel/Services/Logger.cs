@@ -1,4 +1,4 @@
-﻿using API.Interfaces;
+﻿using ManagerChannel.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
@@ -8,14 +8,14 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace ManagerChannel.Services
 {
     public class FileLogger : ILogger
     {
         private static string _exeDir = AppDomain.CurrentDomain.BaseDirectory;
         private string _logFilePath = Path.Combine(_exeDir, @"log\log.json");
 
-        public void Log(LogType type, string message, StackFrame frame = null, Object logObject = null)
+        public void Log(LogType type, string message, StackFrame frame = null, object logObject = null)
         {
             try
             {

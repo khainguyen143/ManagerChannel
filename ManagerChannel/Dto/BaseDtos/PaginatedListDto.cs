@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Dto
+namespace ManagerChannel.Dto.BaseDtos
 {
     public class PaginatedListDto<TModel, TDto> where TDto : BaseDto where TModel : BaseModel
     {
@@ -34,7 +34,7 @@ namespace API.Dto
             {
                 pageSize = 200;
             }
-            if(pageSize < 10)
+            if (pageSize < 10)
             {
                 pageSize = 10;
             }

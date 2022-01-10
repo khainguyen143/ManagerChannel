@@ -1,4 +1,4 @@
-﻿using API.Dto;
+﻿using ManagerChannel.Dto.BaseDtos;
 using System;
 
 namespace ManagerChannel.Dto.ProjectDto

@@ -1,5 +1,5 @@
-﻿using API.Dto.BaseDtos;
-using API.Models;
+﻿using API.Models;
+using ManagerChannel.Dto.BaseDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

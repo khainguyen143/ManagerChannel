@@ -5,12 +5,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Interfaces
+namespace ManagerChannel.Interfaces
 {
     public interface ILogger
     {
         // general
-        public void Log(LogType type, string message, StackFrame frame = null, Object logObject = null);
+        public void Log(LogType type, string message, StackFrame frame = null, object logObject = null);
 
         public List<Log> QueryLog(LogType? type = null, DateTime? logFrom = null, DateTime? logTo = null, string fileName = null, string className = null, string methodName = null, int? lineNumber = null);
 

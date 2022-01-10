@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Constants
+namespace ManagerChannel.Constants
 {
     public static class ResourceConst
     {

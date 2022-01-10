@@ -1,11 +1,12 @@
-﻿using API.Interfaces;
-using API.Models.Support;
+﻿using API.Models.Support;
 using ManagerChannel;
+using ManagerChannel.Dto.BaseDtos;
+using ManagerChannel.Interfaces;
 using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace API.Dto.Support
+namespace ManagerChannel.Dto.Support
 {
     public class TutorialDto : BaseDto
     {
@@ -52,7 +53,7 @@ namespace API.Dto.Support
             catch (Exception ex)
             {
                 var logger = Startup.ServiceProvider.GetService(typeof(ILogger)) as ILogger;
-                logger.Log(LogType.Error, ex.Message, (new StackTrace(ex, true)).GetFrames().Last());
+                logger.Log(LogType.Error, ex.Message, new StackTrace(ex, true).GetFrames().Last());
                 throw;
             }
 
@@ -67,7 +68,7 @@ namespace API.Dto.Support
         {
             var baseResult = base.Validate();
 
-            if(string.IsNullOrEmpty(Title))
+            if (string.IsNullOrEmpty(Title))
             {
                 return new DtoValidationResult(false, "Chưa có Title");
             }

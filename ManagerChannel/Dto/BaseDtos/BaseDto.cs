@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Dto
+namespace ManagerChannel.Dto.BaseDtos
 {
     public class BaseDto
     {
@@ -24,7 +24,7 @@ namespace API.Dto
             CreatedDate = entity.CreatedDate;
             UpdatedDate = entity.UpdatedDate;
 
-            if(entity is ILoggableUserActionModel)
+            if (entity is ILoggableUserActionModel)
             {
                 CreatedByUserId = ((ILoggableUserActionModel)entity).CreatedByUserId;
                 CreatedByUserName = ((ILoggableUserActionModel)entity).CreatedByUser?.UserName;

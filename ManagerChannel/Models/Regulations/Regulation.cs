@@ -40,7 +40,7 @@ namespace ManagerChannel.Models.Regulations
     public class Network_Regulation
     {
         public string NetworkId { get; set; }
-        public NetWork NetWork { get; set; }
+        public Network NetWork { get; set; }
 
         public string RegulationId { get; set; }
         public Regulation Regulation { get; set; }

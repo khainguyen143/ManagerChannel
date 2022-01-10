@@ -1,5 +1,6 @@
 ﻿using API.Dto.Admin.Authorization;
 using API.Models.Notifications;
+using ManagerChannel.Dto.BaseDtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

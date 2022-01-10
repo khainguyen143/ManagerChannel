@@ -1,4 +1,4 @@
-﻿using API.Dto;
+﻿using ManagerChannel.Dto.BaseDtos;
 using System;
 using System.Collections.Generic;
 
@@ -37,6 +37,12 @@ namespace ManagerChannel.Dto.ChannelDto
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
+    public class UserRole_YoutubeChannelDto
+    {
+        public string ChannelId { get; set; }
+        public string UserRoleInTeamId { get; set; }
+    }
+
     public class Network_Channel_HistoryDto : BaseDto
     {
         public string ChannelId { get; set; }
@@ -48,7 +54,7 @@ namespace ManagerChannel.Dto.ChannelDto
         public float NetworkRate { get; set; }
     }
 
-    public class ReportDataChannelDaily : BaseDto
+    public class ReportDataChannelDailyDto : BaseDto
     {
         public string ChannelId { get; set; }
 

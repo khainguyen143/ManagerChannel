@@ -1,4 +1,4 @@
-﻿using API.Dto;
+﻿using ManagerChannel.Dto.BaseDtos;
 using ManagerChannel.Dto.ChannelDto;
 using ManagerChannel.Models.ProjectGoogleApies;
 using System.Collections.Generic;

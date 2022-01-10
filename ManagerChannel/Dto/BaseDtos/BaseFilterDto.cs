@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Extensions;
-using API.Interfaces;
 using API.Models;
 using ManagerChannel;
+using ManagerChannel.Interfaces;
 
-namespace API.Dto
+namespace ManagerChannel.Dto.BaseDtos
 {
     public class BaseFilterDto
     {
@@ -50,17 +50,17 @@ namespace API.Dto
                     {
                         if (!OrderByDesc)
                         {
-                            query = query.OrderBy<T>(OrderBy);
+                            query = query.OrderBy(OrderBy);
                         }
                         else
                         {
-                            query = query.OrderByDescending<T>(OrderBy);
+                            query = query.OrderByDescending(OrderBy);
                         }
                     }
 
                     if (typeof(ILoggableUserActionModel).IsAssignableFrom(typeof(T)))
                     {
-                        if(OrderBy == "CreatedByUserName")
+                        if (OrderBy == "CreatedByUserName")
                         {
                             if (!OrderByDesc)
                             {
@@ -136,20 +136,20 @@ namespace API.Dto
             catch (Exception ex)
             {
                 var logger = Startup.ServiceProvider.GetService(typeof(ILogger)) as ILogger;
-                logger.Log(LogType.Error, ex.Message, (new StackTrace(ex, true)).GetFrames().Last());
+                logger.Log(LogType.Error, ex.Message, new StackTrace(ex, true).GetFrames().Last());
                 throw;
             }
-            
+
         }
 
         public virtual DtoValidationResult Validate()
         {
-            if(PageIndex < 1)
+            if (PageIndex < 1)
             {
                 return new DtoValidationResult(false, "Chỉ số trang không hợp lệ");
             }
 
-            if(PageSize < 1)
+            if (PageSize < 1)
             {
                 return new DtoValidationResult(false, "Số mục mỗi trang không hợp lệ");
             }

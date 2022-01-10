@@ -1,9 +1,9 @@
-﻿using API.Constants;
-using API.Exceptions;
+﻿using API.Exceptions;
 using API.Models;
 using API.Models.Authorization;
 using API.Models.Notifications;
 using API.Models.Support;
+using ManagerChannel.Constants;
 using ManagerChannel.Models.Channels;
 using ManagerChannel.Models.ManagementProject;
 using ManagerChannel.Models.Networks;
@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace API.Data
+namespace ManagerChannel.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -41,30 +41,30 @@ namespace API.Data
         public DbSet<Notification> Notification { get; set; }
         public DbSet<Tutorial> Tutorials { get; set; }
 
-        public DbSet<Team> Teams { get; set; } 
+        public DbSet<Team> Teams { get; set; }
         public DbSet<RolePermissionInTeam> RolePermissionInTeams { get; set; }
         public DbSet<UserRoleInTeam> UserRoleInTeams { get; set; }
         public DbSet<RoleInTeam> RoleInTeams { get; set; }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Project_UserRoleInTeam> ProjectUserRoleInTeams { get; set;}
+        public DbSet<Project_UserRoleInTeam> ProjectUserRoleInTeams { get; set; }
 
-        public DbSet<NetWork> NetWorks { get; set; }
+        public DbSet<Network> NetWorks { get; set; }
         public DbSet<Network_UserRoleInTeam> Network_UserRoleIns { get; set; }
-        public DbSet<Network_PaymentAccount> Network_PaymentAccount { get; set;}
+        public DbSet<Network_PaymentAccount> Network_PaymentAccount { get; set; }
 
         public DbSet<PaymentAccount> PaymentAccounts { get; set; }
-        
+
         public DbSet<YoutubeChannel> YoutubeChannels { get; set; }
         public DbSet<UserRole_YoutubeChannel> UserRole_YoutubeChannels { get; set; }
         public DbSet<ReportDataChannelDaily> ReportDataChannelDailies { get; set; }
 
         public DbSet<Video> Videos { get; set; }
-        public DbSet<ReportDataVideoDaily> ReportDataVideoDaily { get; set;}
+        public DbSet<ReportDataVideoDaily> ReportDataVideoDaily { get; set; }
         public DbSet<ProjectGoogleApi> ProjectGoogleApis { get; set; }
 
         public DbSet<Regulation> Regulations { get; set; }
-        public DbSet<Project_Regulation> Project_Regulations { get; set;}
+        public DbSet<Project_Regulation> Project_Regulations { get; set; }
         public DbSet<Network_Regulation> Network_Regulations { get; set; }
         public DbSet<Team_Regulation> Team_Regulations { get; set; }
 
@@ -111,12 +111,17 @@ namespace API.Data
                 new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Authorize_User},
                 new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_Notification},
                 new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_Service},
+                new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_Project},
+                new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_Network},
+                new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_PaymentAccount},
+                new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_ProjectGoogleApi},
+                new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationAdminRoleId, Permission = Permission.Manage_Financial},
+
 
                 // application_user
                 new RolePermission { Id = Guid.NewGuid().ToString(), CreatedDate = DateTime.Now, CreatedByUserId = AuthConst.ApplicationAdminUserId, RoleId = AuthConst.ApplicationUserRoleId, Permission = Permission.Access_Application},
             });
         }
-
         private void ConfigRelationship(ModelBuilder builder)
         {
             builder.Entity<UserRole>().HasKey(entity => new { entity.UserId, entity.RoleId });
@@ -168,7 +173,7 @@ namespace API.Data
             builder.Entity<Project>().HasOne(entity => entity.UpdatedByUser).WithMany();
             builder.Entity<Project>().HasOne(entity => entity.DeletedByUser).WithMany();
 
-            builder.Entity<Project_UserRoleInTeam>().HasKey( entity => new { entity.ProjectId, entity.UserRoleInTeamId});
+            builder.Entity<Project_UserRoleInTeam>().HasKey(entity => new { entity.ProjectId, entity.UserRoleInTeamId });
             builder.Entity<Project_UserRoleInTeam>()
                 .HasOne(entity => entity.UserRoleInTeam)
                 .WithMany(entity => entity.ProjectRoles)
@@ -178,9 +183,9 @@ namespace API.Data
                 .WithMany(entity => entity.Project_UserRoleInTeams)
                 .HasForeignKey(entity => entity.ProjectId);
 
-            builder.Entity<NetWork>().HasMany(entity => entity.Network_PaymentAccounts).WithOne(entity => entity.NetWork);
-            builder.Entity<NetWork>().HasOne(entity => entity.CreatedByUser).WithMany();
-            builder.Entity<NetWork>().HasOne(entity => entity.UpdatedByUser).WithMany();
+            builder.Entity<Network>().HasMany(entity => entity.Network_PaymentAccounts).WithOne(entity => entity.NetWork);
+            builder.Entity<Network>().HasOne(entity => entity.CreatedByUser).WithMany();
+            builder.Entity<Network>().HasOne(entity => entity.UpdatedByUser).WithMany();
 
             builder.Entity<PaymentAccount>().HasMany(entity => entity.Network_PaymentAccounts);
             builder.Entity<PaymentAccount>().HasOne(entity => entity.CreatedByUser).WithMany();
@@ -321,7 +326,7 @@ namespace API.Data
             return base.SaveChanges();
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             HandleChangedEntries();
             return base.SaveChangesAsync(cancellationToken);
@@ -353,27 +358,27 @@ namespace API.Data
                 }
             }
 
-            var AddedEntries = ChangeTracker.Entries().Where(e => e.Entity is BaseModel && (e.State == EntityState.Added));
+            var AddedEntries = ChangeTracker.Entries().Where(e => e.Entity is BaseModel && e.State == EntityState.Added);
             foreach (var entry in AddedEntries)
             {
                 ((BaseModel)entry.Entity).CreatedDate = DateTime.Now;
-                if(entry.Entity is ILoggableUserActionModel)
+                if (entry.Entity is ILoggableUserActionModel)
                 {
                     ((ILoggableUserActionModel)entry.Entity).CreatedByUserId = UserId;
                 }
             }
 
-            var updatedEntries = ChangeTracker.Entries().Where(e => e.Entity is BaseModel && (e.State == EntityState.Modified));
+            var updatedEntries = ChangeTracker.Entries().Where(e => e.Entity is BaseModel && e.State == EntityState.Modified);
             foreach (var entry in updatedEntries)
             {
                 ((BaseModel)entry.Entity).UpdatedDate = DateTime.Now;
-                if(entry.Entity is ILoggableUserActionModel)
+                if (entry.Entity is ILoggableUserActionModel)
                 {
                     ((ILoggableUserActionModel)entry.Entity).UpdatedByUserId = UserId;
                 }
             }
 
-            var deletedEntries = ChangeTracker.Entries().Where(e => e.Entity is ISoftDeletableModel && (e.State == EntityState.Deleted));
+            var deletedEntries = ChangeTracker.Entries().Where(e => e.Entity is ISoftDeletableModel && e.State == EntityState.Deleted);
             foreach (var entry in deletedEntries)
             {
                 HandleDeleteEntity(entry);
@@ -423,13 +428,13 @@ namespace API.Data
 
         private void HandleDeleteEntity(EntityEntry entry)
         {
-            if(entry.Entity is ISoftDeletableModel)
+            if (entry.Entity is ISoftDeletableModel)
             {
                 entry.State = EntityState.Modified;
                 ((ISoftDeletableModel)entry.Entity).DeletedDate = DateTime.Now;
                 ((ISoftDeletableModel)entry.Entity).IsDeleted = true;
 
-                if(entry.Entity is ILoggableUserActionModel)
+                if (entry.Entity is ILoggableUserActionModel)
                 {
                     ((ILoggableUserActionModel)entry.Entity).DeletedByUserId = UserId;
                 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Dto
+namespace ManagerChannel.Dto.BaseDtos
 {
     public class ResponseMessageDto
     {
@@ -11,7 +11,7 @@ namespace API.Dto
 
         public ResponseMessageDto(MessageType type, string message)
         {
-            this.Messages = new List<ResponseMessage>
+            Messages = new List<ResponseMessage>
             {
                 new ResponseMessage{ MessageType = type, Message = message }
             };

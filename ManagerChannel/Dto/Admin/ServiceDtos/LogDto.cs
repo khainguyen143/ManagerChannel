@@ -1,4 +1,4 @@
-﻿using API.Interfaces;
+﻿using ManagerChannel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

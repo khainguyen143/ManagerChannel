@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Dto.BaseDtos
+namespace ManagerChannel.Dto.BaseDtos
 {
     public class BaseDbSchedulableJobDto : BaseDbJobDto
     {
