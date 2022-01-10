@@ -1,7 +1,9 @@
+using API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,10 +18,12 @@ namespace ManagerChannel
 {
     public class Startup
     {
-
+        public static IServiceProvider ServiceProvider;
+        public static string ApplicationDbConnection;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ApplicationDbConnection = Configuration.GetConnectionString("ApplicationDbConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -32,6 +36,13 @@ namespace ManagerChannel
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ManagerChannel", Version = "v1" });
+            });
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(ApplicationDbConnection, sqlOptions =>
+                {
+                    sqlOptions.MigrationsHistoryTable("__ApplicationEFMigrationsHistory");
+                });
             });
         }
 

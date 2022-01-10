@@ -3,6 +3,7 @@ using API.Models.Authorization;
 using ManagerChannel.Models.Channels;
 using ManagerChannel.Models.ManagementProject;
 using ManagerChannel.Models.Networks;
+using ManagerChannel.Models.Regulations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +23,7 @@ namespace ManagerChannel.Models.Teams
 
         // authrzation
         public List<UserRoleInTeam> UserRolesInTeam { get; set; }
-
+        public List<Team_Regulation> Team_Regulations { get; set; }
         //------------------------------------------
         public string CreatedByUserId { get; set; }
         public User CreatedByUser { get; set; }

@@ -2,6 +2,7 @@
 using API.Models.Authorization;
 using ManagerChannel.Models.Channels;
 using ManagerChannel.Models.Pay;
+using ManagerChannel.Models.Regulations;
 using ManagerChannel.Models.Teams;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace ManagerChannel.Models.Networks
 
         public List<Network_Channel_History> NetWorkHistories { get; set; }
         public List<Network_PaymentAccount> Network_PaymentAccounts { get; set; }
+        public List<Network_Regulation> Network_Regulations { get; set; } 
         //----------------------------------------
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }

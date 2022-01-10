@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Models.Authorization;
+using ManagerChannel.Models.Regulations;
 using ManagerChannel.Models.Teams;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace ManagerChannel.Models.ManagementProject
         public DateTime StartDate { get; set; }
 
         public List<Project_UserRoleInTeam> Project_UserRoleInTeams { get; set; }
-        public List<ProjectRegulation>  ProjectRegulations { get; set; }
+        public List<Project_Regulation> Project_Regulations { get; set; }
 
         //------------------------------------------
         public string CreatedByUserId { get; set; }
